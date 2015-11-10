@@ -4,6 +4,8 @@
 #include "Object.h"
 #include "Set.h"
 
+void log_f(void *item_a, void *item_b, void *item_c, void *set);
+
 int main()
 {
   void * set    = new(Set);
@@ -11,12 +13,8 @@ int main()
   void * item_b = add(set, new(Object));
   void * item_c = new(Object);
 
-  fprintf(stdout, "\n\tMEMORY LAYOUT\n---------------------------------------\n");
-  fprintf(stdout, "set:\t\t%p\n", set);
-  fprintf(stdout, "item_a:\t\t%p\tpoints to: %p\n", item_a, &item_a);
-  fprintf(stdout, "item_b:\t\t%p\tpoints to: %p\n", item_b, &item_b);
-  fprintf(stdout, "item_c:\t\t%p\tpoints to: %p\n", item_c, &item_c);
 
+  log_f(item_a, item_b, item_c, set);
 
   if (contains(set, item_a) && contains(set, item_b))
     puts("ok");
@@ -34,4 +32,15 @@ int main()
   delete(drop(set, item_c));
 
   return 0;
+}
+
+void log_f(void *item_a, void *item_b, void *item_c, void *set)
+{
+  fprintf(stdout, "\n\tMEMORY LAYOUT");
+  fprintf(stdout, "\n---------------------------------------\n");
+  fprintf(stdout, "set:\t\t%p\n", set);
+  fprintf(stdout, "item_a:\t\t%p\n\tpoints to: %p\n", item_a, &item_a);
+  fprintf(stdout, "item_b:\t\t%p\n\tpoints to: %p\n", item_b, &item_b);
+  fprintf(stdout, "item_c:\t\t%p\n\tpoints to: %p\n", item_c, &item_c);
+  fprintf(stdout, "---------------------------------------\n");
 }

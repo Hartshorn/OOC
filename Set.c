@@ -5,10 +5,15 @@
 #include "Object.h"
 #include "Set.h"
 
-
+/*
+/ these are not actually used in this file, but are needed later in main.c
+*/
 const void * Set;
 const void * Object;
 
+/*
+/ make sure MANY is defined correctly
+*/
 #if ! defined MANY || MANY < 1
 #define MANY  10
 #endif
@@ -123,7 +128,10 @@ void * add(void *_set, const void *_element)
 / returns:
 /             void *
 /
-/
+/ verify the set parameter is within the heap
+/ verify that the size of the set (*set) is MANY (10 - initial object size)
+/ verify that the element is on the heap and that it isnt null
+/ return a pointer to the element, or else 0 (which is false)
 */
 void * find(const void *_set, const void *_element)
 {
@@ -139,9 +147,13 @@ void * find(const void *_set, const void *_element)
 }
 
 /*
+/ parameters:
+/             const void *_set
+/             const void *_element
+/ returns:
+/             void *
 /
-/
-/
+/ call find and make sure it doesnt return 0
 */
 int contains(const void *_set, const void *_element)
 {
@@ -149,9 +161,17 @@ int contains(const void *_set, const void *_element)
 }
 
 /*
+/ parameters:
+/             const void *_set
+/             const void *_element
+/ returns:
+/             void *
 /
-/
-/
+/ use find to look for the element in the set
+/ if it isnt 0 << if(element != 0) or if(element) == true >>
+/     set the value to MANY and return the pointer to it
+/ if it isnt in the set
+/     dont do anything and return the pointer to it
 */
 void * drop(void *_set, const void *_element)
  {
@@ -164,9 +184,14 @@ void * drop(void *_set, const void *_element)
  }
 
  /*
+ / parameters:
+ /             const void *a
+ /             const void *b
+ / returns:
+ /             int
  /
- /
- /
+ / verify that a and b point to differnet things
+ / returns 0 (false) if they are the same
  */
  int differ(const void *a, const void *b)
  {
