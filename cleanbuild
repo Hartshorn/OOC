@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -f *.o *.exe
+
+gcc -c -Wall -std=c99 -O0 Set.c && gcc -Wall -std=c99 -O0 -o main Set.o main.c
