@@ -2,4 +2,6 @@
 
 rm -f *.o *.exe
 
-gcc -c -Wall -std=c99 -O0 Set.c && gcc -Wall -std=c99 -O0 -o main Set.o main.c
+# gcc -c -Wall -std=c99 -O0 Set.c && gcc -Wall -std=c99 -O0 -o main Set.o main.c
+
+clang -c -Wall -std=c99 -O0 Bag.c && clang -Wall -std=c99 -O0 -o main Bag.o main_bag.c
