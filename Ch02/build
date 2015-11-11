@@ -1,0 +1,55 @@
+#!/bin/bash
+
+###########################################################
+#                                                         #
+#   This is a buildscript for OOC - Ch02                  #
+#   Change the value of $FILE and $COMPILER as needed     #
+#                                                         #
+#     usage: ./build or ./build clean                     #
+#                                                         #
+###########################################################
+
+echo " "
+echo "------------------Build start------------------"
+echo " "
+
+# FILE1='String'
+ FILE1='Atom'
+ FILE2='new'
+
+ COMPILER='gcc'
+# COMPLIER='clang'
+
+echo "  Compiling Files: $FILE1, $FILE2"
+echo "  Using Compiler: $COMPILER"
+
+  MAIN='main'
+  CFLAGS_COMPILE=' -c -Wall -std=c99 -O0'
+  CFLAGS_BUILD=' -Wall -std=c99 -O0'
+  OUT='-o bin/'
+  SRC='src/'
+  BIN='bin/'
+  MOVE_TO_BIN='mv *.o bin/'
+
+
+  if [ "$1" == "clean" ]; then
+    echo "  Cleaning: bin";
+    rm -f bin/*.o bin/*.exe
+  fi
+
+
+echo " "
+echo "  Begin compliation"
+
+ $COMPILER $CFLAGS_COMPILE $SRC$FILE2\.c $SRC$FILE1\.c
+
+echo "  Relocate files to bin"
+ $MOVE_TO_BIN
+
+ $COMPILER $CFLAGS_BUILD $OUT$MAIN $BIN$FILE2\.o $BIN$FILE1\.o $SRC$MAIN\.c
+
+echo "  Compilation complete"
+echo " "
+echo "-----------------Build complete----------------"
+echo " "
+echo " "

@@ -1,16 +1,15 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "new.h"
-#include "Object.h"
-#include "Set.h"
+#include "../include/new.h"
+#include "../include/Object.h"
+#include "../include/Set.h"
 
 /*
 / these are not actually used in this file, but are needed later in main.c
 */
 const void *Set;
 const void *Object;
-const void *Bag;
 
 /*
 / make sure MANY is defined correctly

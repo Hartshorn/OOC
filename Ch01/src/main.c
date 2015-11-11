@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "new.h"
-#include "Object.h"
-#include "Set.h"
+#include "../include/new.h"
+#include "../include/Object.h"
+#include "../include/Set.h"
 
 void log_f(void *item_a, void *item_b, void *item_c, void *set);
 
