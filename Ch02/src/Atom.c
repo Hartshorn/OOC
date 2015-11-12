@@ -143,6 +143,13 @@ static int String_differ(const void *self, const void *other)
   return self != other;
 }
 
+static void String_write(const void *_self)
+{
+        const struct String *self = _self;
+
+        printf("Atom Text: %s\n", self->text);
+}
+
 
 /*
 / Atom Prototype
@@ -152,7 +159,8 @@ static const struct Class _String = {
   String_ctor,
   String_dtor,
   String_clone,
-  String_differ
+  String_differ,
+  String_write
 };
 
 const void *String = &_String;

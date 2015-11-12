@@ -2,7 +2,7 @@
 
 ###########################################################
 #                                                         #
-#   This is a buildscript for OOC - Ch01                  #
+#   This is a buildscript for OOC - Ch03                 #
 #   Change the value of $FILE and $COMPILER as needed     #
 #                                                         #
 #     usage: ./build or ./build clean                     #
@@ -10,17 +10,15 @@
 ###########################################################
 
 echo " "
-echo "------------------Build start: Ch01------------"
+echo "------------------Build start: Ch04------------"
 echo " "
 
-FILE='Set'
-# FILE='Bag'
-
-echo "  Compiling Files: $FILE"
+FILE1=
 
 COMPILER='gcc'
 # COMPLIER='clang'
 
+echo "  Compiling Files: $FILE1"
 echo "  Using Compiler: $COMPILER"
 
 MAIN='main'
@@ -29,8 +27,8 @@ CFLAGS_BUILD=' -Wall -std=c99 -O0'
 OUT='-o bin/'
 SRC='src/'
 BIN='bin/'
-
 MOVE_TO_BIN='mv *.o bin/'
+
 
         if [ "$1" == "clean" ]; then
                 echo "  Cleaning Only: bin"
@@ -42,15 +40,16 @@ MOVE_TO_BIN='mv *.o bin/'
                         exit 0; fi
         fi
 
+
 echo " "
 echo "  Begin compliation"
+
         $COMPILER $CFLAGS_COMPILE $SRC$FILE\.c
 
 echo "  Relocate files to bin"
         $MOVE_TO_BIN
 
         $COMPILER $CFLAGS_BUILD $OUT$MAIN $BIN$FILE\.o $SRC$MAIN\.c
-
 
 echo "  Compilation complete"
 echo " "

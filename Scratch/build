@@ -2,26 +2,23 @@
 
 ###########################################################
 #                                                         #
-#   This is a buildscript for OOC - Ch01                  #
+#   This is a buildscript for OOC / Scratch               #
 #   Change the value of $FILE and $COMPILER as needed     #
 #                                                         #
-#     usage: ./build or ./build clean                     #
+#       usage: ./build or ./build clean                   #
+#                                                         #
+#       if there are problems - dos2unix / unix2dos       #
 #                                                         #
 ###########################################################
 
 echo " "
-echo "------------------Build start: Ch01------------"
+echo "------------------Build start: Scratch---------"
 echo " "
 
-FILE='Set'
-# FILE='Bag'
-
-echo "  Compiling Files: $FILE"
+FILE1='vectors'
 
 COMPILER='gcc'
 # COMPLIER='clang'
-
-echo "  Using Compiler: $COMPILER"
 
 MAIN='main'
 CFLAGS_COMPILE=' -c -Wall -std=c99 -O0'
@@ -29,8 +26,10 @@ CFLAGS_BUILD=' -Wall -std=c99 -O0'
 OUT='-o bin/'
 SRC='src/'
 BIN='bin/'
-
 MOVE_TO_BIN='mv *.o bin/'
+
+echo "  Compiling File: $FILE1"
+echo "  Using Compiler: $COMPILER"
 
         if [ "$1" == "clean" ]; then
                 echo "  Cleaning Only: bin"
@@ -44,13 +43,14 @@ MOVE_TO_BIN='mv *.o bin/'
 
 echo " "
 echo "  Begin compliation"
-        $COMPILER $CFLAGS_COMPILE $SRC$FILE\.c
+
+        $COMPILER $CFLAGS_COMPILE $SRC$FILE1\.c
 
 echo "  Relocate files to bin"
+
         $MOVE_TO_BIN
 
-        $COMPILER $CFLAGS_BUILD $OUT$MAIN $BIN$FILE\.o $SRC$MAIN\.c
-
+        $COMPILER $CFLAGS_BUILD $OUT$MAIN $BIN$FILE1\.o $SRC$MAIN\.c
 
 echo "  Compilation complete"
 echo " "

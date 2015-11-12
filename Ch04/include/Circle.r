@@ -1,5 +1,5 @@
-#ifndef CLASS_R
-#define CLASS_R
+#ifndef CIRCLE_R
+#define CIRCLE_R
 
 /*****************************************************************************
 *
@@ -14,18 +14,11 @@
 *
 *****************************************************************************/
 
-#include <stdarg.h>
-#include <stdio.h>
+#include "Point.r"
 
-
-struct Class {
-
-  size_t size;
-  void * (*ctor)(void *self, va_list *app);
-  void * (*dtor)(void *self);
-  void * (*clone)(const void *self);
-  int (*differ)(const void *self, const void *other);
-  void (*write)(const void *self);
+struct Circle {
+        const struct Point _;
+        int rad;
 };
 
 #endif

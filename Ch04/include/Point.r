@@ -1,5 +1,5 @@
-#ifndef CLASS_R
-#define CLASS_R
+#ifndef POINT_R
+#define POINT_R
 
 /*****************************************************************************
 *
@@ -14,18 +14,13 @@
 *
 *****************************************************************************/
 
-#include <stdarg.h>
-#include <stdio.h>
 
-
-struct Class {
-
-  size_t size;
-  void * (*ctor)(void *self, va_list *app);
-  void * (*dtor)(void *self);
-  void * (*clone)(const void *self);
-  int (*differ)(const void *self, const void *other);
-  void (*write)(const void *self);
+struct Point {
+        const void *class;
+        int x, y;
 };
+
+#define x(p)    (((const struct Point *) (p)) -> x)
+#define y(p)    (((const struct Point *) (p)) -> y)
 
 #endif

@@ -11,4 +11,6 @@ int differ(const void *self, const void *other);
 
 size_t sizeOf(const void *self);
 
+void write(const void *self);
+
 #endif

@@ -8,8 +8,8 @@
 
 
 struct String {
-  const void *class;
-  char *text;
+          const void *class;
+          char *text;
 };
 
 /*
@@ -23,14 +23,14 @@ struct String {
 */
 static void * String_ctor(void *_self, va_list *app)
 {
-  struct String *self = _self;
-  const char *text = va_arg(*app, const char *);
+        struct String *self = _self;
+        const char *text = va_arg(*app, const char *);
 
-  self->text = malloc(strlen(text) + 1);
-  assert(self->text);
-  strcpy(self->text, text);
+        self->text = malloc(strlen(text) + 1);
+        assert(self->text);
+        strcpy(self->text, text);
 
-  return self;
+        return self;
 }
 
 /*
@@ -38,10 +38,10 @@ static void * String_ctor(void *_self, va_list *app)
 */
 static void * String_dtor(void *_self)
 {
-  struct String *self = _self;
+        struct String *self = _self;
 
-  free(self->text), self->text = 0;
-  return self;
+        free(self->text), self->text = 0;
+        return self;
 }
 
 /*
@@ -49,9 +49,9 @@ static void * String_dtor(void *_self)
 */
 static void * String_clone(const void *_self)
 {
-  const struct String *self = _self;
+        const struct String *self = _self;
 
-  return new(String, self->text);
+        return new(String, self->text);
 }
 
 /*
@@ -63,18 +63,24 @@ static void * String_clone(const void *_self)
 */
 static int String_differ(const void *_self, const void *_other)
 {
-  const struct String *self = _self;
-  const struct String *other = _other;
+        const struct String *self = _self;
+        const struct String *other = _other;
 
-  if(self == other)
-    return 0;
+        if(self == other)
+                return 0;
 
-  if(!other || other->class != String)
-    return 1;
+        if(!other || other->class != String)
+                return 1;
 
-  return strcmp(self->text, other->text);
+        return strcmp(self->text, other->text);
 }
 
+static void String_write(const void *_self)
+{
+        const struct String *self = _self;
+
+        printf("Text: %s\n", self->text);
+}
 
 /*
 / Construct a new String
@@ -83,11 +89,12 @@ static int String_differ(const void *_self, const void *_other)
 / It assigns a size and all functions.
 */
 static const struct Class _String = {
-  sizeof(struct String),
-  String_ctor,
-  String_dtor,
-  String_clone,
-  String_differ
+          sizeof(struct String),
+          String_ctor,
+          String_dtor,
+          String_clone,
+          String_differ,
+          String_write
 };
 
 /*

@@ -135,3 +135,10 @@ size_t sizeOf(const void *self)
   assert(self && *cp);
   return (*cp)->size;
 }
+
+void write(const void *self)
+{
+        const struct Class *const *cp = self;
+        assert(self && *cp && (*cp)->write);
+        (*cp)->write(self);
+}
