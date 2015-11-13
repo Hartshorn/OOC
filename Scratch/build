@@ -17,8 +17,8 @@ echo " "
 
 FILE1='vectors'
 
-COMPILER='gcc'
-# COMPLIER='clang'
+# COMPILER='gcc'
+COMPILER='clang'
 
 MAIN='main'
 CFLAGS_COMPILE=' -c -Wall -std=c99 -O0'
