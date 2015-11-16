@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef void (*voidf)(); // generic function pointer
 
 struct Calculator {
     int(*add)(int, int);
     int(*sub)(int, int);
 };
+
 
 int consumer(int(*f)(int, int), int, int);
 struct Calculator * create_calc();
