@@ -1,0 +1,17 @@
+#!/bin/bash
+
+FILE1='main'
+FILE2='types'
+FILE3='functions'
+
+COMPILER='gcc'
+COMPILER_CLANG='clang'
+CFLAGS=' -std=c99 -Wall -O0 -g '
+
+OUTFILE=' -o complex'
+
+$COMPILER_CLANG $CFLAGS $OUTFILE $FILE2\.c $FILE3\.c $FILE1\.c
+
+if [ "$1" == "run" ]; then
+    ./complex $(tput cols) $(tput lines)
+fi
