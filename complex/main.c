@@ -5,18 +5,26 @@
 #include "types.h"
 #include "functions.h"
 
+int GLOBAL_WIDTH, GLOBAL_HEIGHT;
 
 int main(int argc, char **argv)
 {
 	struct Agent *a = init_agent(10, 10);
+	struct Agent *b = init_agent(12, 12);
+
  	const char *c = "!";
-	int x, y;
 
-	x = (int) strtol(argv[2], (char **)NULL, 10);
-	y = (int) strtol(argv[1], (char **)NULL, 10);
+	GLOBAL_WIDTH  = (int) strtol(argv[1], (char **)NULL, 10);
+	GLOBAL_HEIGHT = (int) strtol(argv[2], (char **)NULL, 10);
 
-	write_at(c, x / 2, y / 2);
+	struct Agent * AGENTS[GLOBAL_WIDTH * GLOBAL_HEIGHT];
+	AGENTS[0] = a;
+	AGENTS[1] = b;
 
-	free_agent(a);
+	clear_screen();
+	write_at(c, GLOBAL_WIDTH / 2, GLOBAL_HEIGHT / 2);
+	write_at(c, AGENTS[0]->p->x, AGENTS[0]->p->y);
+	write_at(c, AGENTS[1]->p->x, AGENTS[1]->p->y);
+
 	return 0;
 }
