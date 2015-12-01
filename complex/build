@@ -10,8 +10,8 @@ CFLAGS=' -std=c99 -Wall -O0 -g '
 
 OUTFILE=' -o complex'
 
-$COMPILER_CLANG $CFLAGS $OUTFILE $FILE2\.c $FILE3\.c $FILE1\.c
+$COMPILER $CFLAGS $OUTFILE $FILE2\.c $FILE3\.c $FILE1\.c
 
 if [ "$1" == "run" ]; then
-    ./complex $(tput cols) $(tput lines)
+    ./complex.exe $(tput cols) $(tput lines)
 fi
