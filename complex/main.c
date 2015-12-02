@@ -6,10 +6,13 @@
 #include "types.h"
 #include "functions.h"
 
-int GLOBAL_WIDTH, GLOBAL_HEIGHT, GLOBAL_MAX, AGENT_COUNT = 0;
+
+int GLOBAL_WIDTH, GLOBAL_HEIGHT, GLOBAL_MAX, AGENT_COUNT = 0, DAY_COUNT = 0;
 const char *AGENT_MARK = "!";
 
-void event_loop(struct Agent **, Living *);
+
+void event_loop(struct Explorer **, Living *, Item *);
+
 
 int main(int argc, char **argv)
 {
@@ -19,39 +22,55 @@ int main(int argc, char **argv)
 	GLOBAL_HEIGHT = (int) strtol(argv[2], (char **)NULL, 10);
 	GLOBAL_MAX = GLOBAL_WIDTH * GLOBAL_HEIGHT;
 
-	struct Agent *AGENTS[GLOBAL_MAX];
-	Living PLANTS[GLOBAL_MAX];
+	struct Explorer *EXPLORERS[GLOBAL_MAX];
 
-	event_loop(AGENTS, PLANTS);
+	Living PLANTS[GLOBAL_MAX];
+	init_plants(PLANTS);
+
+	Item ITEMS[GLOBAL_MAX];
+	init_items(ITEMS);
+
+	event_loop(EXPLORERS, PLANTS, ITEMS);
 
 	return 0;
 }
 
-void event_loop(struct Agent **agents, Living *plants)
+void event_loop(struct Explorer **agents, Living *plants, Item *items)
 {
-    int i, x = 0, y = 0;
+    int i, x = 0;
+	struct Explorer *e = init_explorer(GLOBAL_WIDTH / 2, GLOBAL_HEIGHT / 2);
 
-	grow_plants(init_plants(plants, GLOBAL_MAX), GLOBAL_MAX, GLOBAL_WIDTH, GLOBAL_HEIGHT);
+	add_explorer(e, agents);
+	grow_plants(plants);
+	place_items(items);
 
 	clear_screen();
 
-	while(fscanf(stdin, "%d %d", &x, &y)
-			&& x < GLOBAL_WIDTH
-			&& y < GLOBAL_HEIGHT) {
-
-		add_agent(init_agent(x, y), agents, &AGENT_COUNT);
+	while(fscanf(stdin, "%d", &x) != EOF) {
+		DAY_COUNT += 1;
 
 		for (i = 0; i < AGENT_COUNT; i++) {
-	        write_at(AGENT_MARK, agents[i]->p->x, agents[i]->p->y);
+	        write_at(AGENT_MARK, get_x(*agents[i]), get_y(*agents[i]));
 	    }
 
 		for (i = 0; i < AGENT_COUNT; i++) {
-			move_agent(agents[i], 1, 1);
-			eat_agent(agents[i], plants, GLOBAL_WIDTH);
+			eat_explorer(agents[i], plants);
+			search_explorer(agents[i], items);
+			move_explorer(agents[i], 1, 1);
+			if (agents[i]->super->alive == No) {
+				delete_explorer(agents[i]);
+				resize_array(agents);
+			}
 		}
+	}
 
-		for (i = 0; i < AGENT_COUNT; i++) {
-	        show_agent(agents[i]);
-	    }
+	delete_explorer(agents[0]);
+	resize_array(agents);
+
+	printf("Days: %d\n", DAY_COUNT);
+
+	for (i = 0; i < AGENT_COUNT; i++){
+		show_explorer(agents[i]);
+		free_explorer(agents[i]);
 	}
 }

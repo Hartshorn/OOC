@@ -13,5 +13,9 @@ OUTFILE=' -o complex'
 $COMPILER $CFLAGS $OUTFILE $FILE2\.c $FILE3\.c $FILE1\.c
 
 if [ "$1" == "run" ]; then
-    ./complex.exe $(tput cols) $(tput lines)
+    ./complex $(tput cols) $(tput lines)
+else
+    if [ "$1" == "valgrind" ]; then
+        valgrind -v --leak-check=full --show-leak-kinds=all --track-origins=yes ./complex $(tput cols) $(tput lines)
+    fi
 fi
